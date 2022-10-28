@@ -1,49 +1,16 @@
 const express = require('express')
-
+const {getAllUsers, getSingleUsers, postUsers, putUsers, deleteUsers} = require('../controllers/UserController')
 const router = express.Router()
 
-// establecer las rutas
-//get: obtener datos R
-router.get('/', (request, response)=>{
-    response.status(200).json(
-        {
-            "message": "aqui se va a mostar todo los user"
-        }
-    )
-    })
+//Ruta de usuario
 
-    // // obtner recursos po id
+router.route('/')
+            .get(getAllUsers)
+            .post(postUsers)
 
-router.get('/:id' , (request, response)=>{
-    response.status(200).json(
-        {
-            "message": `aqui se va a mostar el user cuyo id es ${request.params.id}`
-        }
-    )
-})
+router.route('/:id')
+        .get(getSingleUsers)
+        .put(putUsers)
+        .delete(deleteUsers)
 
-// metodo post: crear un nuevo recurso
-
-router.post('/', (request, response)=>{
-    response.status(201).json({
-        "message" : "aqui se va crear un user"
-    })
-})
-
-//Put - Patch: actualizar
-router.put('/:id' , (request, response)=>{
-    response.status(200).json(
-        {
-            "message": `aqui vamos a ver el actualizar ${request.params.id}`
-        }
-    )
-})
-
-router.delete('/:id' , (request, response)=>{
-    response.status(200).json(
-        {
-            "message": `aqui vamos a borrar  ${request.params.id}`
-        }
-    )})
-
-    module.exports = router
+  module.exports = router

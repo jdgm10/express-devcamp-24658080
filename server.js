@@ -2,12 +2,14 @@ const express = require('express')
 const dotenv = require('dotenv')
 const colors = require('colors')
 
+
 // dependencia a la conexion 
 const connectDB = require('./config/db')
 
 //dependecias a la rutas 
 const bootcampRoutes = require('./routes/BootcampsRoutes')
 const userRoutes = require('./routes/userRoutes')
+const listEndpoints = require('express-list-endpoints')
 // establecer el archivo de confi 
 // con variables de entorno de proyecto
 dotenv.config({
@@ -17,6 +19,7 @@ dotenv.config({
 
 // 1 Crear el objeto app
 const app = express()
+app.use(express.json())
 
 // ejecutar la conexion
 
@@ -26,9 +29,11 @@ connectDB()
 app.use('/api/v1/bootcamps' , bootcampRoutes)
 app.use('/api/v1/users' , userRoutes)
 
+console.log(listEndpoints(app));
+
 
 // 3 Ejecutar servidor de desarrolo de express
 
 app.listen(process.env.PORT , ()=>{
-    console.log(`Servidor iniciado en puerto: ${process.env.PORT}`.bgGreen.red);
+    console.log(`Servidor iniciado en puerto: ${process.env.PORT}`.bgRed);
 })
