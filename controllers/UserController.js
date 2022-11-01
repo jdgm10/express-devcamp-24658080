@@ -63,13 +63,14 @@ exports.putUsers = async (request, response)=>{
 exports.deleteUsers = async (request, response)=>{
     const deleteUser= await User.destroy({
         where: {
-          id: req.params.id
+          id: request.params.id
         }
       })
+
     response.status(200).json(
         {
             "succes": true,
-            "data" : deleteUser,
+            "data" : deleteUser
           
         }
     )}
