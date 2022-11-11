@@ -14,14 +14,104 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Courses.init({
-    title: DataTypes.STRING,
-    description: DataTypes.STRING,
-    weeks: DataTypes.INTEGER,
-    enroll_cost: DataTypes.REAL,
-    minimum_skill: DataTypes.STRING
+    title: {
+      type:DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isAlpha:{
+          args: true,
+          msg: ' son letras'
+        },
+        notEmpty:{
+          args: true,
+          msg: ' no envie capos vacios'
+        },
+        notNull: {
+          args: true,
+          msg: ' no tiene el name'
+        },
+      }
+    },
+      
+    description:{
+      type:DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      
+      validate: {
+        isAlpha:{
+          args: true,
+          msg: 'solo son letras'
+        },
+        notEmpty:{
+          args: true,
+          msg: ' no envie capos vacios'
+        },
+        notNull: {
+          args: true,
+          msg: ' no tiene el name'
+        },
+      }
+    
+    } ,
+    weeks:{
+      type:DataTypes.INTEGER,
+      validate: {
+        isNumeric:{
+          args: true,
+          msg: 'Solo permite numeros'
+        },
+      }
+    },
+
+    enroll_cost:{
+      type:DataTypes.REAL,
+      validate: {
+        isNumeric:{
+          args: true,
+          msg: 'Solo permite numeros'
+        },
+      }
+    },
+    
+    minimum_skill:{
+      type:DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        notEmpty:{
+          args: true,
+          msg: ' no envie capos vacios'
+        },
+        notNull: {
+          args: true,
+          msg: ' no tiene nada'
+        },
+      }
+    }, 
+    bootcamp_id: {
+      type:DataTypes.STRING,
+      allowNull: false,
+      unique: true,validate: {
+        isNumeric:{
+          args: true,
+          msg: 'Solo permite numeros'
+        },
+        notEmpty:{
+          args: true,
+          msg: ' no envie capos vacios'
+        },
+        notEmpty:{
+          args: true,
+          msg: ' no envie capos vacios'
+        },
+      }
+    }, 
   }, {
     sequelize,
     modelName: 'Courses',
+    timestamps: false
   });
   return Courses;
 };

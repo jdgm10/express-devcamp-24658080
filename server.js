@@ -7,9 +7,12 @@ const colors = require('colors')
 const connectDB = require('./config/db')
 
 //dependecias a la rutas 
+const ReviewsRoutes = require ('./routes/ReviewsRoutes')
+const CoursesRoutes = require('./routes/CoursesRoutes')
 const bootcampRoutes = require('./routes/BootcampsRoutes')
 const userRoutes = require('./routes/userRoutes')
 const listEndpoints = require('express-list-endpoints')
+
 // establecer el archivo de confi 
 // con variables de entorno de proyecto
 dotenv.config({
@@ -26,6 +29,8 @@ app.use(express.json())
 connectDB()
 
 // 2 crear una ruta de prueba
+app.use('/api/v1/reviews', ReviewsRoutes )
+app.use('/api/v1/courses' , CoursesRoutes)
 app.use('/api/v1/bootcamps' , bootcampRoutes)
 app.use('/api/v1/users' , userRoutes)
 
